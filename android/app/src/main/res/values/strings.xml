@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">AllarmeApp</string>
+    <string name="alarm_fgs_channel_name">Allarme attivo</string>
+    <string name="alarm_fgs_channel_desc">Notifica e sirena durante un allarme (anche a schermo spento)</string>
+    <string name="alarm_fgs_default_title">Allarme</string>
+    <string name="alarm_fgs_default_body">Emergenza in corso. Sirena fino a 20 min (anche a schermo spento). Puoi fermarla prima con Interrompi sirena.</string>
+    <string name="alarm_fgs_stop_action">Interrompi sirena (prima dei 20 min)</string>
+    <string name="alarm_fgs_summary_channel_name">Allarme — messaggio</string>
+    <string name="alarm_fgs_summary_channel_desc">Messaggio dell\'allarme dopo l\'interruzione della sirena</string>
+    <string name="alarm_fgs_summary_prefix">Suoneria interrotta —</string>
+    <string name="alarm_fgs_summary_fallback">Suoneria interrotta — messaggio allarme ancora disponibile qui.</string>
+</resources>
