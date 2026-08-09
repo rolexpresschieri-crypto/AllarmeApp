@@ -47,7 +47,12 @@ async function androidStopAlarmSiren(): Promise<void> {
   }
 }
 
-/** Ferma sirena + rimuove notifica tray (azione da Home: Reset totale). */
+/** Ferma solo la sirena; lascia il box blu Home e la notifica di riepilogo. */
+export async function stopAlarmSirenOnly(): Promise<void> {
+  await androidStopAlarmSiren();
+}
+
+/** Ferma sirena + rimuove notifica tray (azione da Home: Reset notifica). */
 export async function stopAlarmSirenAndClearTray(): Promise<void> {
   if (Platform.OS !== 'android') {
     return;

@@ -16,7 +16,7 @@ import {RootStackParamList} from '../navigation/RootNavigator';
 import {useVolunteerSession} from '../context/VolunteerSessionContext';
 import {useLastAlarmNotification} from '../context/LastAlarmNotificationContext';
 import {logoutVolunteer} from '../services/volunteerApi';
-import {stopAlarmSirenAndClearTray} from '../services/alarmNotification';
+import {stopAlarmSirenAndClearTray, stopAlarmSirenOnly} from '../services/alarmNotification';
 import {theme} from '../theme/theme';
 import AppBackground from '../components/AppBackground';
 import {useTenant} from '../context/TenantContext';
@@ -75,21 +75,22 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     }
   };
 
+  /** Svuota box blu + ferma sirena (anche se già fermata) + toglie notifica tray. */
   const handleResetNotification = async () => {
     try {
       setResettingNotification(true);
+      await stopAlarmSirenAndClearTray();
       await resetNotification();
     } finally {
       setResettingNotification(false);
     }
   };
 
-  /** Svuota box blu + ferma sirena + toglie notifica dal tray. */
-  const handleResetTotale = async () => {
+  /** Solo sirena: box blu e pulsante Reset notifica restano attivi. */
+  const handleResetSuoneria = async () => {
     try {
       setResettingNotification(true);
-      await stopAlarmSirenAndClearTray();
-      await resetNotification();
+      await stopAlarmSirenOnly();
     } finally {
       setResettingNotification(false);
     }
@@ -176,9 +177,9 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
                 <Text style={styles.resetSeparator}>·</Text>
                 <TouchableOpacity
                   style={styles.resetNotificationButton}
-                  onPress={handleResetTotale}
+                  onPress={handleResetSuoneria}
                   activeOpacity={0.8}>
-                  <Text style={styles.resetTotaleText}>Reset totale</Text>
+                  <Text style={styles.resetSuoneriaText}>Reset suoneria</Text>
                 </TouchableOpacity>
               </>
             )}
@@ -346,7 +347,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textDecorationLine: 'underline',
   },
-  resetTotaleText: {
+  resetSuoneriaText: {
     color: theme.colors.logoutActive,
     fontSize: 13,
     fontWeight: '700',
